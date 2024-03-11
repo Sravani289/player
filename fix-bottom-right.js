@@ -1602,11 +1602,12 @@ class FastPixPlayer extends HTMLElement {
 
             // Hide all controls
             this.playPauseButton.style.display = 'none';
+            this.timeDisplay.style.display = 'none';
             this.seekBar.style.display = 'none';
             this.volumeControl.style.display = 'none';
             this.pipButton.style.display = 'none';
             this.fullScreenButton.style.display = 'none';
-            this.ccButton.style.display = "none";
+            // this.ccButton.style.display = "none";
             this.volumeButton.style.display = 'none';
             this.increaseTimeButton.style.display = 'none';
             this.decreaseTimeButton.style.display = 'none';
@@ -1637,7 +1638,7 @@ class FastPixPlayer extends HTMLElement {
         <path d="M15.9444 13.6667C13.9676 13.6667 12.5 15.3981 12.5 17.3334V30.6667C12.5 32.602 13.9676 34.3334 15.9444 34.3334H33.0556C35.0324 34.3334 36.5 32.602 36.5 30.6667V17.3334C36.5 15.3981 35.0324 13.6667 33.0556 13.6667H15.9444ZM16.9444 23.6667H18.6111V24.3334H16.9444V23.6667ZM25.9444 29.6667H16.9444V29H25.9444V29.6667ZM32.0556 29.6667H30.3889V29H32.0556V29.6667ZM32.0556 24.3334H23.0556V23.6667H32.0556V24.3334Z" stroke="black" stroke-opacity="0.15" stroke-width="2"/>
         </svg>`;
         this.ccButton.style.color = "#fff";
-        this.ccButton.style.display = "none";
+        // this.ccButton.style.display = "none";
 
         // Listen for CC button clicks
         this.ccButton.addEventListener('click', () => {
@@ -1881,8 +1882,8 @@ class FastPixPlayer extends HTMLElement {
                     this.volumeButton.style.display = "inline-block";
                     this.isFirefox ? this.pipButton.style.display = 'none' : this.pipButton.style.display = 'inline-block';
                     this.fullScreenButton.style.display = 'inline-block';
-                    this.ccButton.style.display = 'inline-block';
-
+                    // this.ccButton.style.display = 'inline-block';
+                    this.timeDisplay.style.disply = 'inline-block';
 
                     // Show the +10 and -10 buttons after initial play click
                     this.increaseTimeButton.style.display = 'inline-block';
@@ -1977,7 +1978,7 @@ class FastPixPlayer extends HTMLElement {
         // Listen for the 'loadedmetadata' event to know when the duration is available
         this.video.addEventListener('loadedmetadata', () => {
             // Add the play/pause button to the left of the volume control below the seek bar
-            this.parentDiv.insertBefore(this.playPauseButton, this.volumeControl);
+            // this.parentDiv.insertBefore(this.playPauseButton, this.volumeControl);
 
             // Additional styles for play/pause button in this context
             this.playPauseButton.style.position = 'absolute';
@@ -2051,7 +2052,7 @@ class FastPixPlayer extends HTMLElement {
         this.parentDiv.appendChild(this.retryButton);
 
         // Append pipButton and fullScreenElement to bottomRightDiv
-        this.bottomRightDiv.appendChild(this.ccButton);
+        // this.bottomRightDiv.appendChild(this.ccButton);
         this.bottomRightDiv.appendChild(this.pipButton);
         this.bottomRightDiv.appendChild(this.fullScreenButton);
         this.bottomRightDiv.appendChild(this.subtitleMenu);
@@ -2066,13 +2067,15 @@ class FastPixPlayer extends HTMLElement {
         this.parentDiv.appendChild(this.loader);
         this.shadowRoot.appendChild(this.parentDiv);
 
-        // Check if there are any subtitle tracks
-        this.hasSubtitles = this.video.textTracks.length > 0;
+        // // Check if there are any subtitle tracks
+        // this.hasSubtitles = this.video.textTracks.length > 0;
 
-        // Show or hide CC button based on subtitle availability
-        if (this.hasSubtitles) {
-            this.ccButton.style.display = 'block';
-        }
+        // // Show or hide CC button based on subtitle availability
+        // if (this.hasSubtitles) {
+        //     this.ccButton.style.display = 'block'; // might remove later
+        // } else {
+        //     this.ccButton.style.display = 'none';
+        // }
 
         // Bind 'this' to methods
         this.toggleSubtitlesMenu = this.toggleSubtitlesMenu.bind(this);
@@ -2277,8 +2280,7 @@ class FastPixPlayer extends HTMLElement {
             this.bottomRightDiv.id = "bottomRightDiv";
 
             // Show fullScreenButton when videoWidth is greater than 170
-            this.pipButton.style.opacity = '1';
-            this.timeDisplay.style.display = 'inline-block';
+            this.pipButton.style.opacity = '1'
 
         }
     }
@@ -2296,7 +2298,6 @@ class FastPixPlayer extends HTMLElement {
         this.decreaseTimeButton.style.display = 'block';
         this.bottomRightDiv.style.display = 'inline-flex';
 
-        this.timeDisplay.style.visibility = "visible";
     }
 
     // Function to display the retry button
@@ -2312,7 +2313,6 @@ class FastPixPlayer extends HTMLElement {
         this.decreaseTimeButton.style.display = 'none';
         this.bottomRightDiv.style.display = 'none';
         this.timeDisplay.style.display = "none";
-        this.timeDisplay.style.visibility = "hidden";
 
     }
 
@@ -2465,8 +2465,8 @@ class FastPixPlayer extends HTMLElement {
         let src;
         if (streamType === 'on-demand') {
             // If stream-type is on-demand, set the source accordingly
-            // src = `https://staging-api.fastpix.io/v1/stream/${playbackId}`;
-            src = `https://rocketlane.ibee-cdn.net/episode/${playbackId}/stream.m3u8`;
+            src = `https://staging-api.fastpix.io/v1/stream/${playbackId}`;
+            // src = `https://rocketlane.ibee-cdn.net/episode/${playbackId}/stream.m3u8`;
             // src = `https://bitmovin-a.akamaihd.net/content/sintel/hls/playlist.m3u8`;
             // src = `https://stream.fastpix.io/${playbackId}`;
 
@@ -2714,7 +2714,7 @@ class FastPixPlayer extends HTMLElement {
         #parentVolume {
             position: absolute;
             bottom: 10px;
-            left: 11%;
+            left: 255px;
         }
 
         .volumeButton {
@@ -2741,6 +2741,7 @@ class FastPixPlayer extends HTMLElement {
         
         #bottomRightDivMd {
             bottom: 10px;
+            right: 10px;
         }
         
         .subtitle-menu {
@@ -2918,7 +2919,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
     #seekBar {
-       width : 91%;
+       width : 96%;
        position : absolute;
         height : 0.25rem;
        bottom : 40px;
@@ -3101,8 +3102,14 @@ input[type="range"]::-webkit-slider-thumb {
         font-size: 0.875rem;
         color: white;
         position: absolute;
-        bottom: 9.5%;
-        right: 2%; /* Adjust as needed */
+        bottom: 7px;
+        padding: 5px;
+        left: 159px; /* Adjust as needed */
+    }
+
+    #bottomRightDiv {
+        position: absolute;
+        bottom: 7px;
     }
 
     /* for screens/video width less <=481 */
